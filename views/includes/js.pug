@@ -1,0 +1,13 @@
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
+script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', integrity='sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn', crossorigin='anonymous')
+//script(src="javascripts/grain.js")
+script(src="javascripts/vide.js")
+script(src="javascripts/app.js")
+if title == "Music"
+  script(src="javascripts/player.js")
+
+if env.NODE_ENV == "development"
+  script(src="javascripts/reload.js")
+  script(src='//67.205.176.106:35729/livereload.js')
+  

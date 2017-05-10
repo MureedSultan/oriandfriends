@@ -1,0 +1,13 @@
+{
+  "apps" : [{
+    "name": "ori",
+    "script": "nodemon",
+    "args": "-e js, pug",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production" : {
+       "NODE_ENV": "production"
+    }
+  }]
+}

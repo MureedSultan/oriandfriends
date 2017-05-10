@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  audio(src='' controls id='audioPlayer')
+  header(class='h-100')
+    div(class='container')
+      div(class='row align-items-center h-100')
+        h1 MUSIC
+  section(class='playlist')
+    ul(id='playlist')
+      li
+        a(href='1.mp3') First Song
+      li
+        a(href='2.mp3') Second Song
+      li
+        a(href='3.mp3') Third Song
