@@ -4,8 +4,8 @@ $(document).ready(function(){
 		ready: function (event) {
 			$(this).jPlayer("setMedia", {
 				title: "Bubble",
-				m4a: "http://192.168.1.4:3000/music/Bobby%20Trill/Go%20Dawgs/1.m4a",
-				oga: "http://192.168.1.4:3000/music/Bobby%20Trill/Go%20Dawgs/1.ogg"
+				m4a: "/music/Bobby%20Trill/Go%20Dawgs/1.m4a",
+				oga: "/music/Bobby%20Trill/Go%20Dawgs/1.ogg"
 			});
 		},
 		swfPath: "../../dist/jplayer",
