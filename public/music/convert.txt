@@ -1,0 +1,8 @@
+ffmpeg -i input.mp3 -c:a libvorbis -q:a 4 output.ogg
+
+for f in ./*.mp3; do ffmpeg -i "$f" -c:a libvorbis -q:a 4 "${f/%mp3/ogg}"; done
+
+
+ffmpeg -i 1.mp3 -c:a aac -b:a 120k 1.m4a
+
+for f in ./*.mp3; do ffmpeg -i "$f" -c:a aac "${f/%mp3/m4a}"; done

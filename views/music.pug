@@ -1,16 +1,40 @@
 extends layout
 
 block content
-  audio(src='' controls id='audioPlayer')
-  header(class='h-100')
+  header
     div(class='container')
       div(class='row align-items-center h-100')
-        h1 MUSIC
-  section(class='playlist')
-    ul(id='playlist')
-      li
-        a(href='1.mp3') First Song
-      li
-        a(href='2.mp3') Second Song
-      li
-        a(href='3.mp3') Third Song
+        h1 #{env.NODE_ENV} what
+        i.ion-arrow-up-a
+  section(class='playlist h-100')
+  section(class='player')
+    #jquery_jplayer_1.jp-jplayer
+    #jp_container_1.jp-audio(role='application', aria-label='media player')
+      .jp-gui.jp-interface
+          .jp-progress
+              .jp-seek-bar
+                  .jp-play-bar
+          div(class='container-fluid h-100 jp-lower')
+              .row.align-items-center
+                  .col.info
+                  .col.controls
+                        .jp-play.ion-play
+                  .col.volume
+          //.jp-volume-controls
+              button.jp-mute(role='button', tabindex='0') mute
+              button.jp-volume-max(role='button', tabindex='0') max volume
+              .jp-volume-bar
+                  .jp-volume-bar-value
+          //.jp-time-holder
+              .jp-current-time(role='timer', aria-label='time')  
+              .jp-duration(role='timer', aria-label='duration')  
+              .jp-toggles
+                  button.jp-repeat(role='button', tabindex='0') repeat
+      //.jp-details
+          .jp-title(aria-label='title')  
+      //.jp-no-solution
+          span Update Required
+          | 			To play the media you will need to either update your browser to a recent version or update your 
+          a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
+          | .
+    

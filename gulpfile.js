@@ -1,13 +1,25 @@
 const gulp = require('gulp');
-const postcss = require('gulp-postcss');
+const browserSync = require('browser-sync').create();
+
 const sass = require('gulp-sass');
 const sassGlob = require('gulp-sass-glob');
-const livereload = require('gulp-livereload');
+const postcss = require('gulp-postcss');
 
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
 let sassInput = './public/stylesheets/sass/*.sass';
+
+// Static Server + watching scss/html files
+gulp.task('serve', ['css'], function() {
+
+    browserSync.init({
+        proxy: "localhost:3002"
+    });
+
+    gulp.watch('./public/stylesheets/sass/**', ['css']);
+    gulp.watch("./views/**").on('change', browserSync.reload);
+});
 
 gulp.task('css', function () {
     let processors = [
@@ -19,16 +31,8 @@ gulp.task('css', function () {
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss(processors))
         .pipe(gulp.dest('./public/stylesheets'))
-        .pipe(livereload());
+        .pipe(browserSync.stream());
 });
 
-gulp.task('watch', function() {
-  livereload.listen();
-  return gulp
-    .watch('./public/stylesheets/sass/**', ['css'])
-    .on('change', function(event) {
-      console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    });
-});
 
-gulp.task('default', ['css', 'watch']);
+gulp.task('default', ['serve']);
