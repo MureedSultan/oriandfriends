@@ -1,0 +1,7 @@
+.container
+  .row.justify-content-center
+    each album in data
+      .col-6.col-sm-2(data-album= album)
+        .wrapper
+          img(src='/images/music/profile.jpg')
+          p= album

@@ -2,11 +2,12 @@ extends layout
 
 block content
   header
-    div(class='container')
+    div(class='container h-100')
       div(class='row align-items-center h-100')
-        h1 #{env.NODE_ENV} what
-        i.ion-arrow-up-a
-  section(class='playlist h-100')
+        div.wrapper
+          i.ion-music-note.test
+          h1 Music
+  section(class='player-body')
   section(class='player')
     #jquery_jplayer_1.jp-jplayer
     #jp_container_1.jp-audio(role='application', aria-label='media player')

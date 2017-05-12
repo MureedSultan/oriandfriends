@@ -1,0 +1,6 @@
+.container
+  .row.justify-content-center
+    each artist in data
+      .col-6.col-sm-3(data-artist= artist)
+        img(src='/images/music/profile.jpg')
+        p= artist

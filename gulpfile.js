@@ -19,6 +19,7 @@ gulp.task('serve', ['css'], function() {
 
     gulp.watch('./public/stylesheets/sass/**', ['css']);
     gulp.watch("./views/**").on('change', browserSync.reload);
+    gulp.watch("./public/javascripts/**").on('change', browserSync.reload);
 });
 
 gulp.task('css', function () {

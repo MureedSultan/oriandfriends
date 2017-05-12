@@ -1,0 +1,14 @@
+.container
+  .wrapper
+    table.table.table-hover
+      thead
+        tr
+          th.text-right #
+          th Name
+          th Duration
+      tbody
+        each track in data
+          tr(data-track= track.substr(0, track.length-4))
+            th.w-5.text-right(scope='row')= data.indexOf(track)+1
+            td.w-90= track.substr(0, track.length-4)
+            td.w-5
