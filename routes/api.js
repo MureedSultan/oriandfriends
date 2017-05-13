@@ -22,7 +22,7 @@ router.get('/artists', function(req, res, next) {
   let artists;
   let errors;
   try{
-    artists = getDirectories('./public/music');
+    artists = getDirectories('./public/static-music');
   } catch(err) {
     errors = true;
     if (err.code === 'ENOENT') {
@@ -48,7 +48,7 @@ router.get('/artists/:name', function(req, res, next) {
   let albums;
   let errors;
   try{
-    albums = getDirectories('./public/music/' + req.params.name); // ret is an array
+    albums = getDirectories('./public/static-music/' + req.params.name); // ret is an array
   } catch(err) {
     errors = true;
     if (err.code === 'ENOENT') {
@@ -61,7 +61,7 @@ router.get('/artists/:name', function(req, res, next) {
     }
   }
   if(!errors){
-    res.render('components/music-albums', { data: albums });
+    res.render('components/music-albums', { data: albums, artistName: req.params.name });
   }
 });
 
@@ -73,7 +73,7 @@ router.get('/artists/:name/:album', function(req, res, next) {
   let tracks;
   let errors;
   try{
-    tracks = fs.readdirSync('./public/music/' + req.params.name + '/' + req.params.album).filter(function(elm){
+    tracks = fs.readdirSync('./public/static-music/' + req.params.name + '/' + req.params.album).filter(function(elm){
       return elm.match(/.*\.(mp3)/ig);
     });
   } catch(err) {
@@ -89,7 +89,7 @@ router.get('/artists/:name/:album', function(req, res, next) {
     }
   }
   if(!errors){
-    res.render('components/music-tracks', { data: tracks });
+    res.render('components/music-tracks', { data: tracks, artistName: req.params.name, albumName: req.params.album });
   }
 });
 

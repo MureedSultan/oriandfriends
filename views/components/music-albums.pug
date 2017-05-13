@@ -1,7 +1,19 @@
-.container
-  .row.justify-content-center
-    each album in data
-      .col-6.col-sm-2(data-album= album)
-        .wrapper
-          img(src='/images/music/profile.jpg')
-          p= album
+extends music-layout
+
+block header
+  header
+    div(class='container h-100')
+      div(class='row align-items-center h-100')
+        div.wrapper
+          i.ion-music-note.test
+          h1= artistName
+
+block player-body
+  section(class='player-body artist')
+    .container
+      .row.justify-content-center
+        each album in data
+          .col-6.col-sm-2(data-album= album)
+            .wrapper
+              img(src='/static-music/'+artistName+'/'+album+'/cover.png')
+              p= album

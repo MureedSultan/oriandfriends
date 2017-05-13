@@ -1,6 +1,26 @@
-.container
-  .row.justify-content-center
-    each artist in data
-      .col-6.col-sm-3(data-artist= artist)
-        img(src='/images/music/profile.jpg')
-        p= artist
+extends music-layout
+
+block header
+  header
+    div(class='container h-100')
+      div(class='row align-items-center text-center h-100')
+        div.wrapper
+          i.ion-person-stalker
+          h1 Artists
+  
+block player-body
+  section(class='player-body artists')
+    .container
+      .wrapper
+        .row
+          each artist in data
+            .col-12.align-self-start(style='background-image:url("/static-music/'+artist+'/cover_compressed.jpg")')
+              img.img-fluid(src='/static-music/'+artist+'/profile.jpg' data-artist= artist)
+              .artist-info
+                h3(data-artist= artist)= artist
+                ul
+                  li
+                    i.fa.fa-soundcloud
+                  li
+                    i.fa.fa-bandcamp
+  section(class='player-spacer')

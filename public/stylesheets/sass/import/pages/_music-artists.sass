@@ -1,0 +1,75 @@
+.page-Music
+  &.artists
+    header
+      background: url('/images/music/artists-cover_compressed.jpg') no-repeat center center
+      background-size: cover
+      height: 50%
+      color: white
+      text-align: center
+      .wrapper
+        width: 100%
+      h1
+        font-weight: 300
+        padding: 0
+        margin: 0
+      i
+        font-size: 6rem
+        padding: 0
+        margin: 0
+    .player-body
+      margin-bottom: 6rem
+      min-height: 100%
+      [data-artist]
+        cursor: pointer
+      .wrapper
+        margin: 6rem 0 12rem 0
+      .row .col-12
+        padding-top: 1.5rem
+        padding-bottom: 1.5rem
+        margin: 1rem 0 1rem 0
+        border-radius: .25rem
+        background-repeat: no-repeat
+        background-size: cover
+        background-position: center
+        color: white
+        &:not(:first-child)
+          border-top: 1px solid rgba(#333,0.1)
+        img
+          display: inline-block
+          width: 15rem
+          border-radius: 15rem
+          float: left
+          margin-right: 5rem
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+        .artist-info
+          display: inline-block
+        ul
+          list-style-type: none
+          margin: 0
+          padding: 0
+          overflow: hidden
+          li
+            float: left
+            i
+              display: block
+              text-align: center
+              padding: .5rem 1.5rem 0 0
+              font-size: 1.5rem
+    @include breakpoint('xs')
+      .player-body
+        min-height: 100%
+        .row .col-12
+          color: inherit
+          background: white !important
+          margin: 0
+          h3
+            margin-top: -.5rem
+            font-size: 1.5rem
+          img
+            width: 5rem
+            margin-right: 1rem
+            border-radius: 0
+            float: left
+            box-shadow: none
+      .player-spacer
+        height: 1rem

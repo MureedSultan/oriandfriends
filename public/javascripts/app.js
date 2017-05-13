@@ -17,16 +17,17 @@ $(document).ready(function(){
   $('#jquery_jplayer_1').jPlayer({
 		ready: function (event) {
 			$(this).jPlayer('setMedia', {
-				title: '1',
-				m4a: '/static-music/Bobby%20Trill/Go%20Dawgs/1.m4a',
-				oga: '/static-music/Bobby%20Trill/Go%20Dawgs/1.ogg'
+				title: 'Eyes',
+        mp3: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.mp3',
+				m4a: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.m4a',
+				oga: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.ogg'
 			});
 		},
     play: function (event) {
       $('.jp-play').removeClass('ion-play').addClass('ion-pause');
     },
-		swfPath: '../../dist/jplayer',
-		supplied: 'm4a, oga',
+		swfPath: '/javascripts/',
+		supplied: 'mp3, m4a, oga',
 		wmode: 'window',
 		useStateClassSkin: true,
 		autoBlur: false,
@@ -51,6 +52,12 @@ $(document).ready(function(){
 
 // ============================ FUNC
 
+function updatePage(data, addClass){
+  $('header').remove();
+  $('.player-body').remove();
+  $('.page-Music').removeClass('tracks artists albums').addClass(addClass).append(data);
+}
+
 function index() {
     console.log('index page');
     let req = $.ajax({
@@ -58,7 +65,7 @@ function index() {
       method: 'GET',
       dataType: 'html'
     }).done(function(data){
-      $('.player-body').empty().removeClass('artist tracks').addClass('artists').html(data);
+      updatePage(data, 'artists');
       $('[data-artist]').click(function(){
         page('/artists/'+$(this).data('artist'))
       });
@@ -72,7 +79,7 @@ function artist(ctx) {
       method: 'GET',
       dataType: 'html'
     }).done(function(data){
-      $('.player-body').empty().removeClass('artists tracks').addClass('artist').html(data);
+      updatePage(data, 'albums');
       $('[data-album]').click(function(){
         page('/artists/'+ctx.params.artist+'/'+$(this).data('album'))
       });
@@ -87,11 +94,12 @@ function album(ctx) {
       method: 'GET',
       dataType: 'html'
     }).done(function(data){
-      $('.player-body').empty().removeClass('artists artist').addClass('tracks').html(data);
+      updatePage(data, 'tracks');
       $('[data-track]').click(function(){
         let track = $(this).data('track');
         $('#jquery_jplayer_1').jPlayer('setMedia', {
           title: '2',
+          mp3: '/static-music/'+ctx.params.artist+'/'+ctx.params.album+'/'+track+'.mp3',
           m4a: '/static-music/'+ctx.params.artist+'/'+ctx.params.album+'/'+track+'.m4a',
           oga: '/static-music/'+ctx.params.artist+'/'+ctx.params.album+'/'+track+'.ogg'
         })
