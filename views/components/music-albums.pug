@@ -1,19 +1,31 @@
 extends music-layout
 
 block header
-  header
+  header(style='background-image: url("/static-music/'+artistName+'/cover_compressed.jpg")')
     div(class='container h-100')
-      div(class='row align-items-center h-100')
-        div.wrapper
-          i.ion-music-note.test
-          h1= artistName
+      div(class='row h-100')
+        .col-12.align-self-center
+            img.img-fluid(src='/static-music/'+artistName+'/profile.jpg')
+            .artist-info
+              h1= artistName
+              ul
+                li
+                  a(href='#')
+                    i.fa.fa-soundcloud
+                li
+                  a(href='#')
+                    i.fa.fa-bandcamp
 
 block player-body
   section(class='player-body artist')
     .container
-      .row.justify-content-center
+      h2 Albums
+      .row.justify-content-left
         each album in data
-          .col-6.col-sm-2(data-album= album)
+          .col-6.col-sm-3.albums(data-album= album)
             .wrapper
-              img(src='/static-music/'+artistName+'/'+album+'/cover.png')
-              p= album
+              .image
+                img(src='/static-music/'+artistName+'/'+album+'/cover.png')
+              .info
+                p= album
+  section(class='player-spacer')

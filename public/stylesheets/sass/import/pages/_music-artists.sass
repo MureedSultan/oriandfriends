@@ -6,6 +6,7 @@
       height: 50%
       color: white
       text-align: center
+      //clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%)
       .wrapper
         width: 100%
       h1
@@ -30,7 +31,7 @@
         border-radius: .25rem
         background-repeat: no-repeat
         background-size: cover
-        background-position: center
+        background-position: center center
         color: white
         &:not(:first-child)
           border-top: 1px solid rgba(#333,0.1)
@@ -55,6 +56,28 @@
               text-align: center
               padding: .5rem 1.5rem 0 0
               font-size: 1.5rem
+        .listen
+          position: absolute
+          bottom: 1.5rem
+          right: 1rem
+          width: 5rem
+          height: 5rem
+          background: transparent
+          text-transform: uppercase
+          color: white
+          font-size: 2.5rem
+          border: 2px solid white
+          border-radius: 50%
+          cursor: pointer
+          transition: all 0.3s ease 0s
+          &:before
+            margin-left: .25rem
+          &:hover
+            background: white
+            color: #222
+            transition: all 0.3s ease 0s
+          &:focus
+            outline: 0
     @include breakpoint('xs')
       .player-body
         min-height: 100%
@@ -71,5 +94,7 @@
             border-radius: 0
             float: left
             box-shadow: none
+          .listen
+            display: none
       .player-spacer
         height: 1rem

@@ -1,18 +1,84 @@
 .page-Music
   &.albums
-    .player-body .container .row *
-      margin-bottom: 3rem
-      text-align: center
-      cursor: pointer
-      .wrapper
-        height: 14rem
-        width: 100%
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
-        overflow: hidden
-        border-radius: 3px
+    header
+      height: 30%
+      color: white
+      background-size: cover
+      background-position: center center
+      .container
+        padding-top: 2rem
+        padding-bottom: 2rem
+      img
+        display: inline-block
+        width: 13rem
+        border-radius: 13rem
+        float: left
+        margin-right: 5rem
+      .artist-info
+        display: inline-block
+        ul
+          list-style-type: none
+          margin: 1rem 0 0 0
+          padding: 0
+          overflow: hidden
+          li
+            float: left
+            i
+              display: block
+              text-align: center
+              padding: .5rem 1.5rem 0 0
+              font-size: 1.5rem
+        a
+          color: inherit
+          text-decoration: inherit
+      h1
+        background: rgba(black, 0.8)
+        padding: .5rem
+        font-size: 2rem
+        font-weight: 400
+    @include breakpoint('xs')
+      header
+        height: 40%
+        text-align: center
+        .container
+          padding: 0 auto
         img
-          width: 100%
           margin: 0
+          width: 8rem
+          float: none
+        .artist-info
+          display: block
+          h1
+            font-size: 1.5rem
+            background: none
+            margin-bottom: 0
+          ul
+            display: inline-block
+            margin-top: 0
+            li i
+              padding: 0 1rem 0 1rem
+      .player-spacer
+        height: 1rem
+    .player-body
+      margin: 4rem 0 6rem 0
+      min-height: 100%
+      h2
+        margin-bottom: 2rem
+        font-weight: 400
+      .albums
+        margin-bottom: 3rem
+        text-align: center
+      .wrapper
+        cursor: pointer
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.2)
+        border-radius: 3px
+        overflow: hidden
+      .image
+        img
+          max-width: 100%
+          margin: 0
+      .info
+        text-align: left
+        height: 100%
         p
-          margin: 1.1rem 0 0 0
-          word-wrap: break-word
+          margin: 1rem
