@@ -10,7 +10,7 @@ block header
           h1= albumName
           h6= artistName
           p= albumDesc
-          
+
 block player-body
   section(class='player-body tracks')
     .container
@@ -23,7 +23,7 @@ block player-body
               th Duration
           tbody
             each track in data
-              tr(data-track= track.substr(0, track.length-4))
-                th.w-5.text-right(scope='row')= data.indexOf(track)+1
-                td.w-90= track.substr(0, track.length-4)
+              tr(data-track= track['title'])
+                th.w-5.text-right(scope='row')= track['track']
+                td.w-90= track['title']
                 td.w-5

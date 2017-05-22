@@ -5,37 +5,34 @@ block content
     #jquery_jplayer_1.jp-jplayer
     #jp_container_1.jp-audio.disabled(role='application', aria-label='media player')
       .jp-gui.jp-interface
-          .jp-progress
-              .jp-seek-bar
-                  .jp-play-bar
-          div(class='container-fluid h-100 jp-lower')
-              .row
-                  .col-4.info
-                      .image
-                        img
-                      .wrapper
-                        .jp-title(aria-label='title')
-                        .jp-artist(aria-label='artist')
-                        span.dash  - 
-                        .jp-album(aria-label='album')
-                  .col-4.align-self-center.controls
-                      .jp-previous.ion-ios-skipbackward
-                      .jp-play.ion-play
-                      .jp-next.ion-ios-skipforward
-                  .col-4.align-self-center.jp-volume-controls.volume
-                        .jp-mute.ion-android-volume-down
-                        .jp-volume-bar
-                            .jp-volume-bar-value
-                        .jp-volume-max.ion-android-volume-up
-                        
-          .jp-time-holder
-              .jp-current-time(role='timer', aria-label='time')  
-              .jp-duration(role='timer', aria-label='duration')  
-              .jp-toggles
-                  button.jp-repeat(role='button', tabindex='0') repeat
+        .jp-progress
+          .jp-seek-bar
+            .jp-play-bar
+        div(class='container-fluid h-100 jp-lower')
+          .row
+            .col-4.info
+              .image
+                img
+              .wrapper
+                .jp-title(aria-label='title')
+                .jp-artist(aria-label='artist')
+                span.dash  - 
+                .jp-album(aria-label='album')
+            .col-4.align-self-center.controls
+              .jp-previous.ion-ios-skipbackward
+              .jp-play.ion-play
+              .jp-next.ion-ios-skipforward
+            .col-4.align-self-center.jp-volume-controls.volume
+              .jp-mute.ion-android-volume-down
+              .jp-volume-bar
+                .jp-volume-bar-value
+              .jp-volume-max.ion-android-volume-up
+
+        .jp-time-holder
+          .jp-current-time(role='timer', aria-label='time')  
+          .jp-duration(role='timer', aria-label='duration')  
       //.jp-no-solution
-          span Update Required
-          | 			To play the media you will need to either update your browser to a recent version or update your 
-          a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
-          | .
-    
+        span Update Required
+        | 			To play the media you will need to either update your browser to a recent version or update your 
+        a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
+        | .
