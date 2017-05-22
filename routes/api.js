@@ -72,10 +72,12 @@ router.get('/artists/:name', function(req, res, next) {
 router.get('/artists/:name/:album', function(req, res, next) {
   let tracks;
   let errors;
+  let description;
   try{
     tracks = fs.readdirSync('./public/static-music/' + req.params.name + '/' + req.params.album).filter(function(elm){
       return elm.match(/.*\.(mp3)/ig);
     });
+    description = fs.readFileSync('./public/static-music/' + req.params.name + '/' + req.params.album + '/description.txt', 'utf8');
   } catch(err) {
     errors = true;
     if (err.code === 'ENOENT') {
@@ -89,7 +91,7 @@ router.get('/artists/:name/:album', function(req, res, next) {
     }
   }
   if(!errors){
-    res.render('components/music-tracks', { data: tracks, artistName: req.params.name, albumName: req.params.album });
+    res.render('components/music-tracks', { data: tracks, artistName: req.params.name, albumName: req.params.album, albumDesc: description });
   }
 });
 

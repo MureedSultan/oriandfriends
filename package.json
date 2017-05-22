@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start_windows": "set NODE_ENV=development&&nodemon -e js,jade --exec node ./bin/www"
+    "start_windows": "set NODE_ENV=development&&nodemon -e js,jade --ignore public/javascripts --exec node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.16.0",

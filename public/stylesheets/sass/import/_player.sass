@@ -17,6 +17,12 @@
   left: 0
   box-shadow: 0 0 8px rgba(0,0,0,.4)
   background: white
+  &.disabled
+    .info, .volume, .jp-time-holder
+      visibility: hidden
+    .controls
+      opacity: 0.3
+      pointer-events: none
 
 .jp-audio-stream
   width: 182px
@@ -32,48 +38,104 @@
 
 /* @group CONTROLS
 
+/* @group current time and duration
+
+.jp-audio .jp-time-holder
+  position: absolute
+  top: 0.5rem
+  width: 100%
+
+.jp-current-time, .jp-duration
+  width: 5rem
+  font-size: .6rem
+
+.jp-current-time
+  float: left
+  display: inline
+  cursor: default
+  margin-left: 6.25rem
+
+.jp-duration
+  float: right
+  display: inline
+  text-align: right
+  cursor: pointer
+  margin-right: .25rem
+@include breakpoint('xs')
+  .jp-current-time
+    margin-left: .25rem
+/* @end
+
 .jp-lower
   background-color: white
   .row
     height: 100%
     text-align: center
-    .info
-    .controls
-      margin-bottom: 0.25rem
-      .jp-play
-        display: inline-block
-        margin: 0 auto
-        &:before
-          font-size: 3rem
-          cursor: pointer
-    .volume
-
-.jp-state-playing .jp-play
-  background: url("../image/jplayer.blue.monday.jpg") 0 -42px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -41px -42px no-repeat
-
-.jp-stop, .jp-previous, .jp-next
-  width: 28px
-  height: 28px
-  margin-top: 6px
-
-.jp-stop
-  background: url("../image/jplayer.blue.monday.jpg") 0 -83px no-repeat
-  margin-left: 10px
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -29px -83px no-repeat
-
-.jp-previous
-  background: url("../image/jplayer.blue.monday.jpg") 0 -112px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -29px -112px no-repeat
-
-.jp-next
-  background: url("../image/jplayer.blue.monday.jpg") 0 -141px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -29px -141px no-repeat
-
+  .info
+    text-align: left
+    padding-left: 0
+    padding-right: 0
+  .image
+    display: inline-block
+    img
+      height: 6rem
+  .wrapper
+    display: inline-block
+    margin: 0 0 .5rem .5rem
+    vertical-align: middle
+    max-width: 55%
+  .jp-title
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    height: 1.5rem
+    font-weight: 500
+  .jp-artist
+    display: inline-block
+    font-size: .8rem
+  .jp-album
+    display: inline-block
+    font-size: .8rem
+  .controls
+    margin: 0 0 .25rem 0
+    padding: 0
+  .jp-next
+    margin: 0
+    float: none
+    display: inline-block
+    vertical-align: middle
+    &:before
+      font-size: 2rem
+      cursor: pointer
+  .jp-play
+    display: inline-block
+    vertical-align: middle
+    margin: 0 4rem 0 4rem 0
+    width: 30px
+    &:before
+      font-size: 3rem
+      cursor: pointer
+  .jp-previous
+    margin: 0
+    float: none
+    display: inline-block
+    vertical-align: middle
+    &:before
+      font-size: 2rem
+      cursor: pointer
+  .volume
+@include breakpoint('xs')
+  .jp-lower
+    .jp-artist, .jp-album, .dash, .jp-title, .image, .volume
+      display: none
+    .jp-play
+      margin: 0 1rem 0 1rem 0
+    .jp-previous
+      float: left
+      margin-top: 8px
+    .jp-next
+      float: right
+      margin-top: 8px
 /* @end
 /* @group progress bar
 
@@ -86,11 +148,12 @@
   width: 0px
   height: 100%
   cursor: pointer
-  &:hover
-    background-image: linear-gradient(120deg, rgba(#84fab0, 0.2) 0%, rgba(#8fd3f4, 0.2) 100%)
+  background-image: linear-gradient(120deg, rgba(#84fab0, 0.2) 0%, rgba(#8fd3f4, 0.2) 100%)
+
 
 .jp-play-bar
   background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)
+  border-radius: 3px
   width: 0px
   height: 100%
 
@@ -102,105 +165,37 @@
 /* @end
 /* @group volume controls
 
+.jp-volume-controls
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  margin: 0 0 .25rem
+
+.jp-mute
+  font-size: 2rem
+  padding-right: 1rem
+
+.jp-volume-max
+  font-size: 2rem
+  padding-left: 1rem
+  margin-right: 2rem
+
 .jp-state-no-volume .jp-volume-controls
   display: none
 
-.jp-volume-controls
-  position: absolute
-  top: 32px
-  left: 308px
-  width: 200px
-
-.jp-audio-stream .jp-volume-controls
-  left: 70px
-
-.jp-video .jp-volume-controls
-  top: 12px
-  left: 50px
-
-.jp-volume-controls button
-  display: block
-  position: absolute
-  overflow: hidden
-  text-indent: -9999px
-  border: none
-  cursor: pointer
-
-.jp-mute
-  width: 18px
-  height: 15px
-
-.jp-volume-max
-  width: 18px
-  height: 15px
-  left: 74px
-
-.jp-mute
-  background: url("../image/jplayer.blue.monday.jpg") 0 -170px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -19px -170px no-repeat
-
-.jp-state-muted .jp-mute
-  background: url("../image/jplayer.blue.monday.jpg") -60px -170px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -79px -170px no-repeat
-
-.jp-volume-max
-  background: url("../image/jplayer.blue.monday.jpg") 0 -186px no-repeat
-  &:focus
-    background: url("../image/jplayer.blue.monday.jpg") -19px -186px no-repeat
-
 .jp-volume-bar
-  position: absolute
   overflow: hidden
-  background: url("../image/jplayer.blue.monday.jpg") 0 -250px repeat-x
-  top: 5px
-  left: 22px
-  width: 46px
-  height: 5px
+  background-image: linear-gradient(120deg, rgba(#84fab0, 0.2) 0%, rgba(#8fd3f4, 0.2) 100%)
+  border-radius: 3px
+  width: 10rem
+  height: 0.25rem
   cursor: pointer
 
 .jp-volume-bar-value
-  background: url("../image/jplayer.blue.monday.jpg") 0 -256px repeat-x
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)
+  border-radius: 3px
   width: 0px
-  height: 5px
-
-/* @end
-/* @group current time and duration
-
-.jp-audio
-  .jp-time-holder
-    position: absolute
-    top: 50px
-  .jp-type-single .jp-time-holder
-    left: 110px
-    width: 186px
-  .jp-type-playlist .jp-time-holder
-    left: 166px
-    width: 130px
-
-.jp-current-time, .jp-duration
-  width: 60px
-  font-size: .64em
-  font-style: oblique
-
-.jp-current-time
-  float: left
-  display: inline
-  cursor: default
-
-.jp-duration
-  float: right
-  display: inline
-  text-align: right
-  cursor: pointer
-
-.jp-video
-  .jp-current-time
-    margin-left: 20px
-  .jp-duration
-    margin-right: 20px
-
+  height: 0.25rem
 /* @end
 
 .jp-jplayer

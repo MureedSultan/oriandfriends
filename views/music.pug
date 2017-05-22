@@ -3,29 +3,36 @@ extends layout
 block content
   section.player
     #jquery_jplayer_1.jp-jplayer
-    #jp_container_1.jp-audio(role='application', aria-label='media player')
+    #jp_container_1.jp-audio.disabled(role='application', aria-label='media player')
       .jp-gui.jp-interface
           .jp-progress
               .jp-seek-bar
                   .jp-play-bar
           div(class='container-fluid h-100 jp-lower')
-              .row.align-items-center
-                  .col.info
-                  .col.controls
-                        .jp-play.ion-play
-                  .col.volume
-          //.jp-volume-controls
-              button.jp-mute(role='button', tabindex='0') mute
-              button.jp-volume-max(role='button', tabindex='0') max volume
-              .jp-volume-bar
-                  .jp-volume-bar-value
-          //.jp-time-holder
+              .row
+                  .col-4.info
+                      .image
+                        img
+                      .wrapper
+                        .jp-title(aria-label='title')
+                        .jp-artist(aria-label='artist')
+                        span.dash  - 
+                        .jp-album(aria-label='album')
+                  .col-4.align-self-center.controls
+                      .jp-previous.ion-ios-skipbackward
+                      .jp-play.ion-play
+                      .jp-next.ion-ios-skipforward
+                  .col-4.align-self-center.jp-volume-controls.volume
+                        .jp-mute.ion-android-volume-down
+                        .jp-volume-bar
+                            .jp-volume-bar-value
+                        .jp-volume-max.ion-android-volume-up
+                        
+          .jp-time-holder
               .jp-current-time(role='timer', aria-label='time')  
               .jp-duration(role='timer', aria-label='duration')  
               .jp-toggles
                   button.jp-repeat(role='button', tabindex='0') repeat
-      //.jp-details
-          .jp-title(aria-label='title')  
       //.jp-no-solution
           span Update Required
           | 			To play the media you will need to either update your browser to a recent version or update your 

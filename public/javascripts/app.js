@@ -1,60 +1,4 @@
 /*
-  ========== ROUTER ==========
-*/
-page.base('/music');
-page('/', index);
-page('/artists', '/');
-page('/artists/:artist', artist);
-page('/artists/:artist/:album', album);
-page();
-
-/*
-  ========== PAGE LOAD ==========
-*/
-
-$(document).ready(function() {
-    /*
-    window.onbeforeunload = function() {
-        return true;
-    };
-    */
-    $('#jquery_jplayer_1').jPlayer({
-        ready: function(event) {
-            $(this).jPlayer('setMedia', {
-                title: 'Eyes',
-                mp3: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.mp3',
-                m4a: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.m4a',
-                oga: '/static-music/Bobby%20Trill/Go%20Dawgs/Ears.ogg'
-            });
-        },
-        play: function(event) {
-            $('.jp-play').removeClass('ion-play').addClass('ion-pause');
-        },
-        swfPath: '/javascripts/',
-        supplied: 'mp3, m4a, oga',
-        wmode: 'window',
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
-    });
-
-    $('.jp-play').click(function() {
-        let button = $('.jp-play');
-        if (button.hasClass('ion-play')) {
-            button.removeClass('ion-play');
-            button.addClass('ion-pause');
-        } else {
-            button.removeClass('ion-pause');
-            button.addClass('ion-play');
-        }
-    });
-
-});
-
-/*
   ========== PAGE OBJ ==========
 */
 
@@ -88,19 +32,30 @@ let Page = {
 
         Page.update(data, 'tracks', function() {
             $('[data-track]').click(function() {
-                let track = $(this).data('track');
-                let artist = ctx.params.artist;
-                let album = ctx.params.album;
-                $('#jquery_jplayer_1').jPlayer('setMedia', {
-                    title: '2',
-                    mp3: '/static-music/' + artist + '/' + album + '/' + track + '.mp3',
-                    m4a: '/static-music/' + artist + '/' + album + '/' + track + '.m4a',
-                    oga: '/static-music/' + artist + '/' + album + '/' + track + '.ogg'
+                Page.track(ctx.params.artist, ctx.params.album, $(this).data('track'));
+                Page.current['list'] = [];
+                $('[data-track]').each(function(index) {
+                    Page.current['list'].push($(this).data('track'));
                 });
-                $('#jquery_jplayer_1').jPlayer('play');
             });
         });
 
+    },
+
+    track: function(artist, album, track) {
+        console.log('Now playing: ' + track);
+        Page.current['artist'] = artist;
+        Page.current['album'] = album;
+        Page.current['track'] = track;
+        $('#jquery_jplayer_1').jPlayer('setMedia', {
+            title: track,
+            mp3: '/static-music/' + artist + '/' + album + '/' + track + '.mp3',
+            m4a: '/static-music/' + artist + '/' + album + '/' + track + '.m4a',
+            oga: '/static-music/' + artist + '/' + album + '/' + track + '.ogg'
+        }).jPlayer('play');
+        $('.jp-artist').empty().append(artist);
+        $('.jp-album').empty().append(album);
+        $('.image img').attr('src', '/static-music/' + artist + '/' + album + '/' + 'cover_compressed.jpg')
     },
 
     // PAGE UPDATE FUNC
@@ -113,18 +68,105 @@ let Page = {
             callback();
         }
 
-    }
+    },
+    current: [],
+    cache: []
 
 };
+
+/*
+  ========== ROUTER ==========
+*/
+page.base('/music');
+page('/', index);
+page('/artists', '/');
+page('/artists/:artist', artist);
+page('/artists/:artist/:album', album);
+page();
+
+/*
+  ========== PAGE LOAD ==========
+*/
+
+$(document).ready(function() {
+    /*
+    window.onbeforeunload = function() {
+        return true;
+    };
+    */
+    $('#jquery_jplayer_1').jPlayer({
+        ready: function(event) {
+            console.log('Player ready coach!');
+        },
+        play: function(event) {
+            $('.jp-audio').removeClass('disabled');
+            $('.jp-play').removeClass('ion-play').addClass('ion-pause');
+        },
+        ended: function(event) {
+            $('.jp-play').removeClass('ion-pause').addClass('ion-play');
+            let index = Page.current['list'].indexOf(Page.current['track']);
+            let next;
+            if (index >= 0 && index < Page.current['list'].length - 1) {
+                next = Page.current['list'][index + 1];
+            } else {
+                next = Page.current['list'][index - Page.current.list.length + 1]
+            }
+            Page.track(Page.current['artist'], Page.current['album'], next);
+        },
+        swfPath: '/javascripts/',
+        supplied: 'mp3, m4a, oga',
+        wmode: 'window',
+        useStateClassSkin: true,
+        autoBlur: false,
+        smoothPlayBar: true,
+        keyEnabled: true,
+        remainingDuration: true,
+        toggleDuration: true
+    });
+
+    $('.jp-play').click(function() {
+        let button = $('.jp-play');
+        if (button.hasClass('ion-play')) {
+            button.removeClass('ion-play');
+            button.addClass('ion-pause');
+        } else {
+            button.removeClass('ion-pause');
+            button.addClass('ion-play');
+        }
+    });
+
+    $('.jp-next').click(function() {
+        let index = Page.current['list'].indexOf(Page.current['track']);
+        let next;
+        if (index >= 0 && index < Page.current['list'].length - 1) {
+            next = Page.current['list'][index + 1];
+        } else {
+            next = Page.current['list'][index - Page.current.list.length + 1]
+        }
+        Page.track(Page.current['artist'], Page.current['album'], next);
+    });
+
+    $('.jp-previous').click(function() {
+        let index = Page.current['list'].indexOf(Page.current['track']);
+        let prev;
+        if (index >= 0 && index < Page.current['list'].length - 1) {
+            prev = Page.current['list'][index - 1];
+        } else {
+            prev = Page.current['list'][index - Page.current.list.length + 1]
+        }
+        Page.track(Page.current['artist'], Page.current['album'], prev);
+    });
+
+});
 
 /*
   ========== ROUTER INIT ==========
 */
 
 function index(ctx) {
-    if (ctx.state.index) {
+    if (Page.cache['page-index']) {
         console.log('index page - loaded');
-        Page.index(ctx.state.index);
+        Page.index(Page.cache['page-index']);
     } else {
         console.log('index page - requested');
         let req = $.ajax({
@@ -132,6 +174,7 @@ function index(ctx) {
             method: 'GET',
             dataType: 'html'
         }).done(function(data) {
+            Page.cache['page-index'] = data;
             ctx.state.index = data;
             ctx.save();
             Page.index(data);
@@ -140,41 +183,38 @@ function index(ctx) {
 }
 
 function artist(ctx) {
-    if (ctx.state.artist) {
-        console.log('artist page - loaded');
-        Page.artist(ctx.state.artist, ctx);
+    let artist = ctx.params.artist;
+    if (Page.cache['page-artist-' + artist]) {
+        console.log(artist + ' page - loaded');
+        Page.artist(Page.cache['page-artist-' + artist], ctx);
     } else {
-        let artist = ctx.params.artist;
         console.log(artist + ' page - requested');
         let req = $.ajax({
             url: '/api/artists/' + artist,
             method: 'GET',
             dataType: 'html'
         }).done(function(data) {
-            ctx.state.artist = data;
-            ctx.save();
+            Page.cache['page-artist-' + artist] = data;
             Page.artist(data, ctx);
         });
     }
 }
 
 function album(ctx) {
-    if (ctx.state.album) {
-        console.log('album page - loaded');
-        Page.album(ctx.state.album, ctx);
+    let artist = ctx.params.artist;
+    let album = ctx.params.album;
+    if (Page.cache['page-album-' + artist + '-' + album]) {
+        console.log(artist + ' — ' + album + ' ' + ' page - loaded');
+        Page.album(Page.cache['page-album-' + artist + '-' + album], ctx);
     } else {
-        console.log('album page - requested');
-        let artist = ctx.params.artist;
-        let album = ctx.params.album;
+        console.log(artist + ' — ' + album + ' page - requested');
         let req = $.ajax({
             url: '/api/artists/' + artist + '/' + album,
             method: 'GET',
             dataType: 'html'
         }).done(function(data) {
-            ctx.state.album = data;
-            ctx.save();
+            Page.cache['page-album-' + artist + '-' + album] = data;
             Page.album(data, ctx);
         });
     }
-
 }
